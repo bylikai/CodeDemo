@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>菜鸟教程(runoob.com)</title>
+    <style>
+        div {
+            width: 120px;
+            height: 50px;
+            background-color: #ff00f0;
+        }
+
+        div#div2 {
+            transform: rotate(30deg);
+            -ms-transform: rotate(30deg);
+            /* IE 9 */
+            -webkit-transform: rotate(30deg);
+            /* Safari and Chrome */
+        }
+
+        /*添加圆角、阴影*/
+        div {
+            border-radius: 20px;
+            box-shadow:10px 10px 5px #232323;
+
+            border: 2px solid #8AC007;
+            padding: 20px; 
+
+            border-image: url("./logo");
+        }
+    </style>
+</head>
+
+<body>
+
+    <div>你好。这是一个 DIV 元素。</div>
+
+    <div id="div2">你好。这是一个 DIV 元素。</div>
+
+</body>
+
+</html>
