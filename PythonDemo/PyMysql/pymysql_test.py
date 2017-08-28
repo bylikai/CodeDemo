@@ -3,12 +3,14 @@ import string
 import pymysql
 import pymysql.cursors
 import matplotlib.pyplot as plt
-from pandas import Series,DataFrame
+from pandas import Series, DataFrame
 
 import datetime
 from datetime  import date
 import time
-
+import  numpy  as np
+from scipy import stats
+from sklearn.linear_model import BayesianRidge, LinearRegression
 
 def mysql_test(): 
     # connect mysql
@@ -37,12 +39,43 @@ def mysql_test():
         # close
         connection.close()
 
+# -----------------------------------------------------------------------
+# Market class
 
-'''
-class Market  for Trade
-'''
 class Market:
-    # Initialize the Market
+    """ Market class, is the bitcoin or letcoin market price
+
+    Parameters
+    ----------
+    data : numpy ndarray (structured or homogeneous), dict, or DataFrame
+        Dict can contain Series, arrays, constants, or list-like objects
+    index : Index or array-like
+        Index to use for resulting frame. Will default to np.arange(n) if
+        no indexing information part of input data and no index provided
+    columns : Index or array-like
+        Column labels to use for resulting frame. Will default to
+        np.arange(n) if no column labels are provided
+    dtype : dtype, default None
+        Data type to force, otherwise infer
+    copy : boolean, default False
+        Copy data from inputs. Only affects DataFrame / 2d ndarray input
+
+    Examples
+    --------
+    >>> d = {'col1': ts1, 'col2': ts2}
+    >>> df = DataFrame(data=d, index=index)
+    >>> df2 = DataFrame(np.random.randn(10, 5))
+    >>> df3 = DataFrame(np.random.randn(10, 5),
+    ...                 columns=['a', 'b', 'c', 'd', 'e'])
+
+    See also
+    --------
+    DataFrame.from_records : constructor from tuples, also record arrays
+    DataFrame.from_dict : from dicts of Series, arrays, or dicts
+    DataFrame.from_items : from sequence of (key, value) pairs
+    pandas.read_csv, pandas.read_table, pandas.read_clipboard
+    """
+
     def __init__(self, host, username, password, dbname):
         
         self.__host       = host
@@ -61,6 +94,10 @@ class Market:
         self._buy = []
         self._open = [] 
         self._stime= []
+        self._X = []
+        self._Y = []
+        self._X1 = DataFrame( columns=["id", "vtime", "webid", "coinid", "high", "low", "buy", "sell", "open", "last" ],
+            dtype=float )
 
 
     # connection the database with __dbname
@@ -97,10 +134,13 @@ class Market:
 
 
     def query_records(self, tbname, skip, limit ):
-        
-        sql = '''select id, vtime, webid, coinid, 
+        # query record for sql
+        sql = ('''select id, vtime, webid, coinid, 
                     high, low, sell, buy, last, vol, open  
-                from {db}.{tb} limit {skip}, {limit}'''.format(
+                from {db}.{tb} 
+                where webid = 1 and coinid = 1
+                order by id asc
+                limit {skip}, {limit}''').format(
             db = self.__dbname,
             tb = tbname,
             skip = skip,
@@ -111,8 +151,8 @@ class Market:
         try:
             cursor = self.__db.cursor()
             cursor.execute(sql)
-            rowcount = cursor.rowcount;
-            if( rowcount > 0 ):
+            rowcount = cursor.rowcount
+            if(rowcount > 0):
                 results = cursor.fetchall()
             
             cursor.close()
@@ -150,13 +190,48 @@ class Market:
             self._last.append(_last)
             self._vol.append(_vol)
             self._open.append(_open)
+            
+            # Create record by _vtime,..., and Add record to _X
+            # And add _last into _Y
+            record = np.arange(3)
+            record[0] = _sell
+            record[1] = _buy
+            record[2] = _vol
+            #record[3] = _high
+            #record[4] = _low
+           
+            #print(record)
+
+            self._X.append( record )
+            self._Y.append( _last )
+
+            #self._X1.append("id"=_id, "vtime"=_vtime, "webid"=_webid, "coinid"=_coinid, "high"=_high, "low"=_low, "buy"=_buy,"sell"=_sell, "open"=_open, "last"=_last)
+
             self._stime.append( time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(_vtime) ) )
             
         return True
 
+    def process_data_2( self ):
+        '''
+        process data for diff , logdiff, volatility(波动率)
+        '''
+        # diff log
+        logdiff = np.diff( np.log(self._last) )
+        #print( logdiff )
+
+        # volatility
+        volatility_last = np.std(logdiff) / np.mean( logdiff )
+        #print( volatility_last )
+
+        volatility_last = volatility_last / np.sqrt( 1./ logdiff.size )
+        #print( volatility_last )
+
+
     def show_data(self):
         #plt.scatter( self._vtime, self._buy, color='blue' )
         #stime = self._vtime
+        '''
+        # show the curve of buy , sell, last
         stime = self._vtime
         plt.plot(stime, self._buy, color='blue', label='buy')
         plt.plot(stime, self._sell, color='red', label='sell')
@@ -167,6 +242,81 @@ class Market:
         plt.xlabel('time')
 
         plt.show()
+        '''
+        x = self._vtime
+
+        plt.subplot(321)
+        plt.plot(x, self._last, label="lastprice", color="#054E9F", linestyle=':')
+
+        plt.subplot(322)
+        plt.plot(x, self._buy,  label="buy price",  color="#FF0000", linestyle='-')
+
+        plt.subplot(323)
+        plt.plot(x, self._sell, label="sell price", color="green",   linestyle='-')
+
+        plt.subplot(324)
+        plt.plot(x, self._vol,  label="volume",     color="#B22222",  linestyle='-')
+
+        # show the curve with Bayesian
+        # print X, Y
+        #print(self._X)
+        #print(self._Y)
+
+        clf = BayesianRidge(
+            n_iter=300, 
+            tol=1.e-3, 
+            alpha_1=1.e-6, 
+            alpha_2=1.e-6, 
+            lambda_1=1.e-6, 
+            lambda_2=1.e-6, 
+            compute_score=True, 
+            fit_intercept=True, 
+            normalize=False, 
+            copy_X=True, 
+            verbose=False)
+            
+        clf.fit(self._X, self._Y)
+
+        plt.subplot(325)
+        plt.plot(clf.coef_, color='lightgreen', linewidth=1, label="Bayesian Ridge estimate")
+        
+        #plt.title("matploylib.pyplot")
+
+        plt.show()
+        
+
+        '''
+        # show the curve with 
+        clf = BayesianRidge(compute_score=True)
+        clf.fit(self._vtime, self._X)
+
+        plt.plot(clf.coef_, color='lightgreen', linewidth=1, label="Bayesian Ridge estimate")
+        
+        plt.show()
+        '''
+
+    def minmax(self):
+        """
+        Calculate the max and min for the buy/sell price
+        """
+        max_sell = np.max( self._sell )
+        min_sell = np.min( self._sell )
+        avg_sell = np.average( self._sell )
+        avg_w_sell = np.average( self._sell, weights=self._vol)
+
+        max_buy = np.max( self._buy )
+        min_buy = np.min( self._buy )
+        avg_buy = np.average( self._buy)
+        avg_w_buy = np.average( self._buy, weights=self._vol )
+
+        print( ("Sell, max: {0}, min:{1}, average: {2}, weights average:{3}")
+            .format( max_sell, min_sell, avg_sell, avg_w_sell  ) )
+
+        print( ("Buy, max: {0}, min:{1}, average: {2}, weights average:{3}")
+            .format( max_buy, min_buy, avg_buy, avg_w_buy  ) )
+        
+        
+
             
     def close_database(self):
         try:
@@ -178,8 +328,8 @@ class Market:
 
 if __name__ == '__main__':
 #    mysql_test()
-    tbname = "t_market";
-    obj = Market("localhost", "root", "root", "dbname")
+    tbname = "t_market"
+    obj = Market("127.0.0.1", "root", "root", "dbbase")
     if obj.connection_database() is False:
         print("connect the database failed!")
         exit
@@ -188,8 +338,8 @@ if __name__ == '__main__':
     if count>1000:
         count = 1000
   
-    step = 20
-    start = 0;
+    step = 500
+    start = 0
     while start<=count:
         status, rowcount, results = obj.query_records(tbname,start,step)
         if( (status is True) and (rowcount > 0) ):
@@ -199,6 +349,12 @@ if __name__ == '__main__':
             break
 
         start += rowcount
+
+    # process_data_2
+    obj.process_data_2()
+
+    obj.minmax()
+
     obj.show_data()
 
     obj.close_database()

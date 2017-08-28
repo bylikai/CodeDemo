@@ -1,0 +1,366 @@
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Registe.aspx.cs" Inherits="CSDN博客.Registe" %>
+<!DOCTYPE html>
+<head runat="server">
+    <title></title>
+    <style type="text/css">
+        .zhuyi {
+            color: Red;
+            font-size: small;
+        }
+
+        #pwd-strong {
+            float: left;
+            margin: 0px;
+            padding: 0px;
+            list-style: none;
+            background-image: url(images/pwdstrong.gif);
+            background-repeat: no-repeat;
+        }
+
+        #pwd-strong li {
+            float: left;
+            padding: 0px;
+            color: #ccc;
+            font-size: 11px;
+            width: 64px;
+            height: 10px;
+            text-align: center;
+            padding-top: 9px;
+        }
+
+        .pwds3 {
+            background-position: -20px -70px;
+        }
+
+        .pwds2 {
+            background-position: -20px -44px;
+        }
+
+        .pwds1 {
+            background-position: -20px -18px;
+        }
+
+        #pwd-strong li.currs {
+            color: #000;
+        }
+        /*头部css样式*/
+
+        #head {
+            margin: 0;
+        }
+
+        #head a:hover {
+            color: Red;
+        }
+
+        .ahead {
+            color: black;
+            font-size: small;
+            text-decoration: none;
+        }
+
+        #lefthead {
+            float: left;
+            margin: 0;
+        }
+
+        #righthead {
+            float: right;
+            margin: 0;
+        }
+        /*头部css样式结束*/
+        /*信息部分开始*/
+
+        #body {
+            /* 
+border: 1px solid black; 
+*/
+            position: absolute;
+            width: 900px;
+            height: 700px;
+            left: 230px;
+            top: 50px;
+        }
+
+        #picture {
+            float: left;
+        }
+
+        #xinxi {
+            border: 1px solid pink;
+            width: 850px;
+            height: 440px;
+            position: absolute;
+            left: 20px;
+            top: 50px
+        }
+
+        #biaoti {
+            position: absolute;
+            left: 1px;
+            top: 10px;
+        }
+
+        #xian {
+            position: absolute;
+            left: 20px;
+            top: 50px;
+        }
+
+        #table {
+            position: absolute;
+            /* 
+border:1px solid black; 
+*/
+            left: 50px;
+            top: 90px;
+        }
+        /*信息部分结束*/
+        /*底部开始*/
+
+        #footer {
+            /* 
+border:1px solid black; 
+*/
+            position: absolute;
+            left: 430px;
+            top: 560px;
+        }
+
+        .buttom {
+            margin: 0px;
+            font-size: small;
+        }
+
+        .abuttom {
+            text-decoration: none;
+            color: Black;
+        }
+
+        #footer a:hover {
+            color: Blue;
+        }
+
+        img {
+            border: 0px;
+        }
+        /*底部结束*/
+    </style>
+    <script src="emailvalidatorjs.js" type="text/javascript"></script>
+    <script src="jquery-1.9.1.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('#txtPassword').keyup(function () {
+                var score = testpass($(this).val());
+                if (score < 34) {
+                    $('#pwd-strong').css('display', 'block');
+                    $('#pwd-strong').addClass('pwds1');
+                    $('li:first').addClass('currs');
+                }
+                else if (score >= 34 && score < 68) {
+                    $('#pwd-strong').css('display', 'block');
+                    $('#pwd-strong').removeClass();
+                    $('#pwd-strong').addClass('pwds2');
+                    $('li:eq(1)').addClass('currs');
+                }
+                else {
+                    $('#pwd-strong').css('display', 'block');
+                    $('#pwd-strong').removeClass();
+                    $('#pwd-strong').addClass('pwds3');
+                    $('li:last').addClass('currs');
+                }
+            })
+        })
+
+    </script>
+</head>
+
+<body>
+    <form id="form1" runat="server">
+        <!--内容-->
+        <div>
+            <!--头部-->
+            <div id="head">
+                <!--头部左-->
+                <div id="lefthead">
+                    <a href="http://www.csdn.net/" class="ahead">首页</a>
+                    <a href="http://news.csdn.net/" class="ahead">业界</a>
+                    <a href="http://mobile.csdn.net/" class="ahead">移动</a>
+                    <a href="http://cloud.csdn.net/" class="ahead">云计算</a>
+                    <a href="http://sd.csdn.net/" class="ahead">研发</a>
+                    <a href="http://bbs.csdn.net/" class="ahead">论坛</a>
+                    <a href="http://blog.csdn.net/" class="ahead">博客</a>
+                    <a href="http://download.csdn.net/" class="ahead">下载</a>
+                    <a class="ahead">更多</a>
+                </div>
+                <!--头部右-->
+                <div id="righthead">
+                    <span class="zhuyi">你还未登陆！</span>|
+                    <a href="http://www.csdn.net/" class="ahead">登陆</a> |
+                    <a href="http://www.csdn.net/" class="ahead">注册</a> |
+                    <a href="https://passport.csdn.net/help/faq" class="ahead">帮助</a>
+                </div>
+            </div>
+            <!--头部结束-->
+            <!--身体-->
+            <div id="body">
+                <!--图片-->
+                <div id="picture">
+                    <img src="images/zhuce.gif" />
+                </div>
+                <!--信息-->
+                <div id="xinxi">
+                    <div id="biaoti">
+                        <img src="images/zhuce1.gif" />
+                    </div>
+                    <div id="xian">
+                        <img src="images/zhuce2.png" />
+                    </div>
+                    <div id="table">
+                        <table>
+                            <!--用户名-->
+                            <tr>
+                                <td><span class="zhuyi">*</span>用户名：</td>
+                                <td>
+                                    <asp:TextBox ID="txtName" runat="server" ControlToValidate="TextBox1"></asp:TextBox>
+                                </td>
+                                <td>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="用户名不能为空" ControlToValidate="txtName"
+                                        Display="Dynamic" Font-Size="15px" ForeColor="Red"></asp:RequiredFieldValidator>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td colspan="2">
+                                    <label style="color:#c0c0c0;font-size:small;">（字母、数字或下划线组合。）</label></td>
+                            </tr>
+                            <!--密码-->
+                            <tr>
+                                <td><span class="zhuyi">*</span>密码：</td>
+                                <td>
+                                    <asp:TextBox ID="txtPassword" runat="server"></asp:TextBox>
+                                </td>
+                                <td>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtPassword" Display="Dynamic"
+                                        ErrorMessage="不能为空" Font-Size="15px" ForeColor="Red"></asp:RequiredFieldValidator>
+                                    <div>
+                                        <ul id="pwd-strong" style="display: none;">
+                                            <li>弱</li>
+                                            <li>中</li>
+                                            <li>强</li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td colspan="2">
+                                    <label style="color:#c0c0c0;font-size:small;">（为了您的帐户安全，强烈建议您的密码使用字符+数字等多种不同类型的组合，并且密码长度大于5位。）</label></td>
+                            </tr>
+                            <!--再次输入密码-->
+                            <tr>
+                                <td><span class="zhuyi">*</span>再次输入密码：</td>
+                                <td>
+                                    <asp:TextBox ID="txtPasswordAgain" runat="server"></asp:TextBox>
+                                </td>
+                                <td>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="txtPassword" Display="Dynamic"
+                                        ErrorMessage="不能为空" ForeColor="Red" Font-Size="15px"></asp:RequiredFieldValidator>
+                                    <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="两次输入的密码不一致" ControlToCompare="txtPassword" ControlToValidate="txtPasswordAgain"
+                                        Display="Dynamic" ForeColor="Red" Font-Size="15px"></asp:CompareValidator>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td colspan="2">
+                                    <label style="color:#c0c0c0;font-size:small;">（请确保密码正确）</label></td>
+                            </tr>
+                            <!--E-mail-->
+                            <tr>
+                                <td><span class="zhuyi">*</span>E-mail</td>
+                                <td>
+                                    <asp:TextBox ID="txtEmail" runat="server"></asp:TextBox>
+                                </td>
+                                <td>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="txtEmail" Display="Dynamic" ErrorMessage="不能为空"
+                                        ForeColor="Red" Font-Size="15px"></asp:RequiredFieldValidator>
+                                    <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="txtEmail" Display="Dynamic"
+                                        ErrorMessage="邮箱格式不正确" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"
+                                        ForeColor="Red" Font-Size="15px"></asp:RegularExpressionValidator>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td colspan="2">
+                                    <label style="color:#c0c0c0;font-size:small;">（请填写您常用的邮箱）</label></td>
+                            </tr>
+                            <!--验证码-->
+                            <tr>
+                                <td><span class="zhuyi">*</span>校验码：</td>
+                                <td>
+                                    <asp:TextBox ID="TextBox5" runat="server"></asp:TextBox>
+                                </td>
+                                <td>
+                                    <img src="checkCode.aspx" onclick="this.src='checkCode.aspx?aaa='+new Date()" alt="" />图片看不清？点击重新得到验证码
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="TextBox5" Display="Dynamic" ErrorMessage="不能为空"></asp:RequiredFieldValidator>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td colspan="2">
+                                    <span class="zhuyi">（如您连续输入不对验证码，请检查您的浏览器是否禁用了Cookie。<a href="http://passport.csdn.net/help/faq">如何启用Cookie？</a>）</span></td>
+                            </tr>
+                            <tr>
+                                <!--条款-->
+                                <td><span class="zhuyi">*</span>注册条款：</td>
+                                <td colspan="2">
+                                    <asp:CheckBox ID="CheckBox1" runat="server" oncheckedchanged="CheckBox1_CheckedChanged" Text="我已仔细阅读并接受" /><a href="http://passport.csdn.net/help/terms">CSDN注册条款</a>。</td>
+                            </tr>
+                            <!--注册提交-->
+                            <tr>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td colspan="2">
+                                    <asp:ImageButton ID="ImageButton1" runat="server" ImageUrl="~/images/zhuce.jpg" onclick="ImageButton1_Click" />
+                                    <asp:Label ID="lbinfo" runat="server" ForeColor="Red"></asp:Label>
+                                </td>
+                            </tr>
+                        </table>
+                        <div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--身体结束-->
+            <!--底部-->
+            <div id="footer" align="center">
+                <div class="buttom">
+                    <a href="http://www.csdn.net/company/about.html" class="abuttom">公司简介</a>|
+                    <a href="http://www.csdn.net/company/recruit.html" class="abuttom">招贤纳士</a>|
+                    <a href="http://www.csdn.net/company/marketing.html" class="abuttom">广告服务</a>|
+                    <a href="http://www.csdn.net/company/account.html" class="abuttom">银行汇款账号</a>|
+                    <a href="http://www.csdn.net/company/contact.html" class="abuttom">联系方式</a>|
+                    <a href="http://www.csdn.net/company/statement.html" class="abuttom">版权声明</a>|
+                    <a href="http://www.csdn.net/company/layer.html" class="abuttom">法律顾问</a>|
+                    <a href="" class="abuttom">问题报告</a>
+                </div>
+                <p class="buttom">京 ICP 证 070598 号</p>
+                <p class="buttom">北京创新乐知信息技术有限公司 版权所有</p>
+                <p class="buttom"><img src="images/zhuce4.gif" />联系邮箱：webmaster(at)csdn.net</p>
+                <p class="buttom">Copyright © 1999-2012, CSDN.NET, All Rights Reserved</p>
+                <div>
+                    <a href="http://www.hd315.gov.cn/beian/view.asp?bianhao=010202001032100010" class="abuttom"><img src="images/denglu2.gif"/></a>
+                    <a href="https://trustsealinfo.verisign.com/splash?form_file=fdf/splash.fdf&dn=passport.csdn.net&lang=zh_cn" class="abuttom"><img src="images/denglu1.gif"/></a>
+                </div>
+            </div>
+        </div>
+    </form>
+</body>
+</html>
