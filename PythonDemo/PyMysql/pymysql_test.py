@@ -12,6 +12,12 @@ import  numpy  as np
 from scipy import stats
 from sklearn.linear_model import BayesianRidge, LinearRegression
 
+# import our configure of the database
+from database_config import func_database_config
+
+
+print( func_database_config() )
+
 def mysql_test(): 
     # connect mysql
     connection = pymysql.connect(
@@ -145,6 +151,38 @@ class Market:
             tb = tbname,
             skip = skip,
             limit = limit
+        )
+
+        cursor = None
+        try:
+            cursor = self.__db.cursor()
+            cursor.execute(sql)
+            rowcount = cursor.rowcount
+            if(rowcount > 0):
+                results = cursor.fetchall()
+            
+            cursor.close()
+            return  True, rowcount, results
+
+        except:
+            print("Error : unable to fetch data")
+            if cursor is not None :
+                cursor.close()
+            return False, 0, 0
+
+    def query_records_by_starttime(self, tbname, startTime, timeSpan ):
+        """
+        query record for sql for startTime and timeSpan
+        """
+        sql = ('''select id, vtime, webid, coinid, 
+                    high, low, sell, buy, last, vol, open  
+                from {db}.{tb} 
+                where webid = 1 and coinid = 1 and vtime >= {startTime} and vTime < {endTime}
+                order by id asc ''').format(
+            db = self.__dbname,
+            tb = tbname,
+            startTime = startTime,
+            endTime = startTime+timeSpan
         )
 
         cursor = None
@@ -324,19 +362,88 @@ class Market:
         finally:
             self.__db.close()
 
-
-
-if __name__ == '__main__':
-#    mysql_test()
+def func_db_test():
+    """
+    predict the price of the btc with Bayesian Regularation
+    """
     tbname = "t_market"
-    obj = Market("127.0.0.1", "root", "root", "dbbase")
+    host,username, password, dbname = func_database_config()
+    obj = Market(host, username, password, dbname)
+
     if obj.connection_database() is False:
         print("connect the database failed!")
         exit
+        
     count = obj.get_records_count(tbname)
     
     if count>1000:
         count = 1000
+  
+    step = 500
+    start = 0
+    while start<=count:
+        status, rowcount, results = obj.query_records(tbname,start,step)
+        if( (status is True) and (rowcount > 0) ):
+            obj.process_data( results )
+        else :
+            print ("query records error")
+            break
+
+        start += rowcount
+
+    # process_data_2
+    obj.process_data_2()
+
+    obj.minmax()
+
+    obj.show_data()
+
+    obj.close_database()
+
+
+def func_weighted_average( results ) :
+    """ Calculation the weighted average price
+    """
+
+
+
+if __name__ == '__main__':
+    """ Main function for the t_market
+
+    startTime 1498838400 (2017-07-01 00:00:00)
+    endTime   1504022400 (2017-08-30 00:00:00)
+    timeSpan  10
+    """
+    
+    # connnect the database 
+    host,username, password, dbname = func_database_config()
+
+    tbname = "t_market"
+    obj = Market(host, username, password, dbname)
+
+    if obj.connection_database() is False:
+        print("connect the database failed!")
+        exit
+
+    count = obj.get_records_count(tbname)
+
+    
+    # Reset the condition
+    startTime = 1498838400
+    endTime   = 1504022400
+    timeSpan  = 10
+    calTiems  = 0
+
+    indexTime = startTime
+    while indexTime <= endTime :
+        """
+        iterator the time and get the results
+        and calculate the Weighted Average Price
+        and count the times
+        """
+        status , rowcount, results = obj.query_records_by_starttime( indexTime, timeSpan )
+        if (status is True) and (rowcount > 0):
+            
   
     step = 500
     start = 0
