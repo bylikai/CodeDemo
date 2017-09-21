@@ -174,6 +174,7 @@ class Market:
         """
         query record for sql for startTime and timeSpan
         """
+        # Step 1  constructor the condition 
         sql = ('''select id, vtime, webid, coinid, 
                     high, low, sell, buy, last, vol, open  
                 from {db}.{tb} 
@@ -185,14 +186,18 @@ class Market:
             endTime = startTime+timeSpan
         )
 
+        
         cursor = None
         try:
+            # Step 2 execute the sql 
             cursor = self.__db.cursor()
             cursor.execute(sql)
             rowcount = cursor.rowcount
+            results  = None
+
+            # Step 3 parse the results 
             if(rowcount > 0):
                 results = cursor.fetchall()
-            
             cursor.close()
             return  True, rowcount, results
 
@@ -263,6 +268,30 @@ class Market:
 
         volatility_last = volatility_last / np.sqrt( 1./ logdiff.size )
         #print( volatility_last )
+
+
+    def process_data_for_weighted_average(self, results):
+        """ 
+        calculate the btc price average from results 
+        """
+        if results is None:
+            return False
+
+        vtime=[]
+        buy = []
+        vol = []
+
+        # parse the buy price and volume
+        for row in results:
+            [_id,   _vtime, _webid, _coinid, 
+             _high, _low,   _sell,  _buy, 
+             _last, _vol,   _open ] = tuple( row )
+        
+            vtime.append(_vtime)
+            buy.append(_buy)
+            vol.append(_vol)
+
+        return True, vtime, buy, vol
 
 
     def show_data(self):
@@ -413,6 +442,12 @@ if __name__ == '__main__':
     startTime 1498838400 (2017-07-01 00:00:00)
     endTime   1504022400 (2017-08-30 00:00:00)
     timeSpan  10
+
+    =========================================
+    There are three segment : 
+    first   as training the algorithm
+    second  as predict  the btc price
+    third   as estimate the algorithm
     """
     
     # connnect the database 
@@ -429,41 +464,80 @@ if __name__ == '__main__':
 
     
     # Reset the condition
-    startTime = 1498838400
-    endTime   = 1504022400
-    timeSpan  = 10
+    # startTime = 1498838400
+    startTime = 1496935222
+    endTime   = 1502563797
+
+    endTime1  = startTime + ( endTime - startTime )/3
+    endTime2  = endTime1  + ( endTime - startTime )/3
+    endTime3  = endTime
+
+    timeSpan  = 1000
     calTiems  = 0
 
+    '''
+    Bayesian Regularation 
+    '''
+    X = []
+    Y1 = []
+    Y2 = []
+
+    countNumber = 0
+    currentTime = time.time()
     indexTime = startTime
-    while indexTime <= endTime :
+    while indexTime <= endTime1 :
         """
         iterator the time and get the results
         and calculate the Weighted Average Price
         and count the times
         """
-        status , rowcount, results = obj.query_records_by_starttime( indexTime, timeSpan )
+        # Step1 get the records
+        status , rowcount, results = obj.query_records_by_starttime( tbname, indexTime, timeSpan )
         if (status is True) and (rowcount > 0):
-            
-  
-    step = 500
-    start = 0
-    while start<=count:
-        status, rowcount, results = obj.query_records(tbname,start,step)
-        if( (status is True) and (rowcount > 0) ):
-            obj.process_data( results )
+            # calculate the weighted avarage price of btc
+            status, vtime, buy, vol = obj.process_data_for_weighted_average( results )
+            # print( buy )
+            # buy is an array 
+            X.append( vtime[rowcount-1] )  # store the unix timestamp
+            y1 = np.average( buy )
+            y2 = np.average( buy, weights=vol )
+            Y1.append(y1)
+            Y2.append(y2)
         else :
-            print ("query records error")
-            break
+            # print("There is no more data!")
+            pass
 
-        start += rowcount
+        # Step2 iterator the index timeSpan
+        indexTime += timeSpan
+        calTiems += 1
+        countNumber += rowcount
+        print( "countNumber: {0},  Time: {1}".format( countNumber, time.time() ) )
+    
+    print( "Process Time : {0}".format( time.time() - currentTime ) )
 
-    # process_data_2
-    obj.process_data_2()
+    # plot the data
+    plt.subplot(211)
+    plt.plot( X, Y1, 'g')
+    plt.title("BTC AVERAGE PRICE")
 
-    obj.minmax()
+    plt.subplot(212)
+    plt.plot( X, Y2, 'b')
+    plt.title("BTC WEIGHTED PRICE")
 
-    obj.show_data()
+    '''
+    Predict the price for X
+    
+    =============================================
+    X = w0 + w1*X1 + w2*X2 + w3*X3 + w4*r
+    
+    where  
+    w = (w0, w1, w2, w3, w4) are learnt parameters.
+    Sj, 1 ≤ j ≤ 3 are collected; and how w is learnt.
+    '''
+    #reg = BayesianRidge()
+    #reg.fit(X, Y1)
+    #plt.plot( reg.coef_ )
 
     obj.close_database()
 
-    print ("---------------------")
+    plt.show()
