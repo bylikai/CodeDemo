@@ -4,17 +4,28 @@
 	<groupId>JavaDemo</groupId>
 	<artifactId>JavaDemo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<description>Java Source Demo : test or opensource test</description>
+	<description>Java Source Demo for test Open Source</description>
 
+	<repositories>
+		<repository>
+			<id>Eclipse Paho Repo</id>
+			<url>https://repo.eclipse.org/content/repositories/paho-snapshots/</url>
+		</repository>
+	</repositories>
 
 	<dependencies>
-
-		<!-- netty dependency -->
+		<!-- https://mvnrepository.com/artifact/io.netty/netty-all -->
 		<dependency>
 			<groupId>io.netty</groupId>
-			<artifactId>netty</artifactId> <!-- Use 'netty-all' for 4.0 or above -->
-			<version>4.1.15</version>
-			<scope>compile</scope>
+			<artifactId>netty-all</artifactId>
+			<version>5.0.0.Alpha2</version>
+		</dependency>
+
+		<!-- https://repo.eclipse.org/content/repositories/paho-snapshots -->
+		<dependency>
+			<groupId>org.eclipse.paho</groupId>
+			<artifactId>org.eclipse.paho.client.mqttv3</artifactId>
+			<version>1.0.3</version>
 		</dependency>
 	</dependencies>
 
