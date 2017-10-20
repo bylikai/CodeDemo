@@ -16,7 +16,7 @@ public class MqttPaho {
 	String content = "Message from MqttPublishSample";
 	int qos = 2;
 
-	String broker = "tcp://127.0.0.1:61613";
+	String broker = "tcp://localhost:61613";
 
 	String clientId = "JavaSample";
 	String userName = "admin";
