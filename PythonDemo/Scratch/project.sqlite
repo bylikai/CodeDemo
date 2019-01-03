@@ -1,0 +1,9 @@
+create table project_list(
+    id integer primary key autoincrement unique not null,
+    title text not null,
+    url   text not null
+)
+
+create table project_item(
+    
+)
