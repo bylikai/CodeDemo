@@ -1,6 +1,7 @@
 #决策树
 
 from math import log
+import operator
 
 def calcShannonEntropy(dataSet):
     """
@@ -65,6 +66,8 @@ def chooseBestFeatureToSplit(dataSet):
             newEntropy += prop*calcShannonEntropy(subDataSet)
         infoGain = baseEntropy - newEntropy
 
+        print( str(i) + ":  " + str(infoGain) )
+
         #3)计算最好的信息增益
         if infoGain > bestInfoGain:
             bestInfoGain = infoGain
@@ -73,7 +76,78 @@ def chooseBestFeatureToSplit(dataSet):
     return bestFeature
         
 
+def majorityCount(classList):
+    """
+    返回次数最多的分组
+    """
+    classCount = {}
 
+    for vote in classList:
+        if vote not in classCount.keys:
+            classCount[vote] = 1
+        else:
+            classCount[vote] += 1
+
+    sortedClassCount = sorted(classCount.iteritems(), key=operator.itemgetter(1), reverse=True)
+
+    return sortedClassCount[0][0]
+
+
+def createTree(dataSet, labels ):
+    """
+    创建树的函数代码：利用递归方法
+    """
+    #0） 取最后特征值
+    classList = [example[-1] for example in dataSet]
+
+    #1） 类别完全相同，则停止继续划分
+    if classList.count( classList[0]) == len(classList):
+        return classList[0]
+    
+    #2)  遍历完所有特征时，返回出现次数最多的类别
+    if len(dataSet[0]) == 1:
+        return majorityCount(classList)
+
+    #3)  获取最优特征分组
+    copyLabels = labels[:]
+
+    bestFeat = chooseBestFeatureToSplit(dataSet)
+    bestFeatLabel = copyLabels[bestFeat]
+    myTree = { bestFeatLabel:{} }
+    del(copyLabels[bestFeat])    
+
+    #4）  得到 列表包含的所有属性值
+    featValues = [ example[bestFeat] for example in dataSet ]
+    uniqueVals = set(featValues)
+
+    for value in uniqueVals:
+        subLabels = copyLabels[:]
+        myTree[ bestFeatLabel][value] = createTree( splitDataSet(dataSet, bestFeat, value), subLabels)
+
+    return myTree
+
+
+def classify( inputTree, featLabels, testVec ):
+    """
+    使用决策树的分类函数，对testVec进行分类判断
+    """
+    firstKey = inputTree.keys()
+    #firstStr = inputTree.keys()[0]
+    firstStr = list(firstKey)[0]
+
+    secondDict = inputTree[firstStr]
+    
+    #将标签字符串转换成索引
+    featIndex = featLabels.index( firstStr )
+
+    for key in secondDict.keys():
+        if testVec[featIndex] == key:
+            if type(secondDict[key]).__name__ == 'dict':
+                classLabel = classify(secondDict[key], featLabels, testVec )
+            else:
+                classLabel = secondDict[key]
+    
+    return classLabel  #这里的classLabel 作用域？
 
 def createDataSet():
     dataSet = [
