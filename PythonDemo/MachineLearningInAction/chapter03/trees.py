@@ -2,6 +2,7 @@
 
 from math import log
 import operator
+import pickle
 
 def calcShannonEntropy(dataSet):
     """
@@ -148,6 +149,23 @@ def classify( inputTree, featLabels, testVec ):
                 classLabel = secondDict[key]
     
     return classLabel  #这里的classLabel 作用域？
+
+def storeTree(inputTree, filename):
+    """
+    存储决策树
+    """
+    fw = open(filename, 'w')
+    pickle.dumps(inputTree, fw)
+    fw.close()
+
+def loadTree(filename):
+    """
+    加载决策树
+    """
+    fr = open(filename)
+    inputTree = pickle.loads(fr)
+    fr.close()
+    return inputTree
 
 def createDataSet():
     dataSet = [
