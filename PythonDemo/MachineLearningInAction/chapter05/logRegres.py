@@ -111,6 +111,9 @@ def plotBestFit01( dataMatIn,classLabels, weights ):
     import matplotlib
     matplotlib.use('TkAgg')
     import matplotlib.pyplot as plt
+    import time
+
+    plt.ion()
     
     dataArr = np.array(dataMatIn)
     n = np.shape(dataArr)[0]
@@ -144,6 +147,7 @@ def plotBestFit01( dataMatIn,classLabels, weights ):
     plt.xlabel('X')
     plt.ylabel('Y')
 
+    plt.ioff()
     plt.show()
 
 
@@ -162,43 +166,68 @@ def stocGradAscent0(dataMatrix, classLabels):
 
     return weights
 
-def stocGradAscent1(dataMatrix, classLabels, numIter=150):#随机梯度上升算法，1.步长是变化的，2.随机选取样本数据迭代，减少波动
-    m,n = np.shape(dataMatrix)
+def stocGradAscent1(dataMatrix, classLabels, numIter=150):
+    """
+    随机梯度上升算法，1.步长是变化的，2.随机选取样本数据迭代，减少波动
+    """
+    m, n = np.shape(dataMatrix)
     weights = np.ones(n)   #initialize to all ones
+
     for j in range(numIter):
-        dataIndex = list(range(m))#python3中range()返回的是range对象，而不是数组对象
+        #python3中range()返回的是range对象，而不是数组对象
+        dataIndex = list(range(m))
+
         for i in range(m):
             alpha = 4/(1.0+j+i)+0.0001 #步长在每次迭代时都会变化，不断减小，最小为0.0001
             randIndex = int(np.random.uniform(0,len(dataIndex)))#随机选出数据样本来更新回归系数，避免回归系数周期性的波动
-            h = sigmoid(sum(dataMatrix[randIndex]*weights))
+            
+            h = sigmoid( sum( dataMatrix[randIndex]*weights ) )
             error = classLabels[randIndex] - h
             weights = weights + alpha * error * dataMatrix[randIndex]
-            del(dataIndex[randIndex])#然后把选过的删去
+            
+            del( dataIndex[randIndex] )#然后把选过的删去
+
     return weights
 
-def classifyVector(inX,weight):#通过sigmoid（）函数分类,inx为列表
+
+def classifyVector(inX,weight):
+    """
+    通过sigmoid（）函数分类,inx为列表
+    """
     prob=sigmoid(sum(inX*weight))
-    if prob>0.5:
+
+    if prob > 0.5:
         return 1.0
     else:
         return 0.0
 
-def classifyClass(dataArr,labels):#分类
+
+def classifyClass(dataArr,labels):
+    """
+    分类
+    """
     frTrain = open('horseColicTraining.txt')
     trainingSet = []
     trainingLabels = []
+
     for line in frTrain.readlines():
         currLine = line.strip().split('\t')
         lineArr = []
         for i in range(21):
-            lineArr.append(float(currLine[i]))
-        trainingSet.append(lineArr)  # 形成矩阵
-        trainingLabels.append(float(currLine[21]))  # 列表
-    traininWeights = stocGradAscent1(np.array(trainingSet), trainingLabels, 500)  # 调用改进随机梯度上升算法求的最佳参数
+            lineArr.append( float(currLine[i]) )
+
+        trainingSet.append( lineArr )  # 形成矩阵
+        trainingLabels.append( float(currLine[21]) )  # 列表
+
+    traininWeights = stocGradAscent1( np.array(trainingSet), trainingLabels, 500 )  # 调用改进随机梯度上升算法求的最佳参数
+    
     classNum=classifyVector(dataArr,traininWeights)
-    if classNum==0.0: num=0
+    
+    if classNum==0.0: 
+        num=0
     else:
         num =1
+
     print("分类器训练后,根据传入的数据判断类别为:{}".format(labels[num]))
 
 

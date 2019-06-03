@@ -1,4 +1,5 @@
 
+import numpy as np
 import logRegres
 
 if __name__ == "__main__":
@@ -10,3 +11,9 @@ if __name__ == "__main__":
     logRegres.plotBestFit01(dataArr, labelMat, weights.getA() )
     
     #logRegres.multiTest()
+    weights = logRegres.stocGradAscent0( np.array(dataArr), labelMat)
+    logRegres.plotBestFit01(dataArr, labelMat, weights )
+
+
+    weights = logRegres.stocGradAscent1( np.array(dataArr), labelMat)
+    logRegres.plotBestFit01(dataArr, labelMat, weights )
