@@ -37,7 +37,7 @@ def read_excel( fileName, winderId ):
     
 
     # 打开execl
-    #print(fileName)
+    # print(fileName)
     workbook = xlrd.open_workbook(fileName)
 
     # 输出Excel文件中所有sheet的名字
@@ -171,7 +171,7 @@ def test_one_excel():
         cols = dataList[:, i]
         dataColList.append( cols )
 
-    #dataListT = np.mat(dataList).T
+    # dataListT = np.mat(dataList).T
     xArr = dataColList[27]  #风速
     yArr = dataColList[22]  #有功功率
 

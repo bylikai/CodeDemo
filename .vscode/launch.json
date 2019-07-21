@@ -1,11 +1,22 @@
 {
     "version": "0.2.0",
     "configurations": [
+
         {
-            "type": "java",
-            "name": "Debug (Launch)",
+            "name": "Python",
+            "type": "python",
             "request": "launch",
-            "mainClass": ""
+            "stopOnEntry": true,
+            "pythonPath": "D:/Install/Anaconda3/python",
+            "program": "${file}",
+            "cwd": "${workspaceRoot}",
+            "env": {},
+            "envFile": "${workspaceRoot}/.env",
+            "debugOptions": [
+                "WaitOnAbnormalExit",
+                "WaitOnNormalExit",
+                "RedirectOutput"
+            ]
         },
         
         {
