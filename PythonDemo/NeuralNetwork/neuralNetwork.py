@@ -1,6 +1,13 @@
 import numpy as np
 import scipy.special
 
+#http://yann.lecun.com/exdb/mnist/
+#
+#http://www.pjreddie.com/media/files/mnist_train.csv
+#http://www.pjreddie.com/media/files/mnist_test.csv
+
+#https://raw.githubusercontent.com/makeyourownneuralnetwork/makeyourownneuralnetwork/master/mnist_dataset/mnist_train_100.csv
+#https://raw.githubusercontent.com/makeyourownneuralnetwork/makeyourownneuralnetwork/master/mnist_dataset/mnist_test_10.csv
 
 class neuralNetwork:
     def __init__(self, inputnodes, hiddennodes, outputnodes, learningrate):
@@ -41,6 +48,14 @@ class neuralNetwork:
         #1）计算误差： 
         #error is the (target-actual)
         output_errors = targets - final_outputs
+        #hidden layer error is the output_errors, split by weights, recombined at hidden nodes
+        hidden_errors = np.dot(self.who.T, output_errors)
+
+        #2） 调整权重
+        #update the weights for the links between the hidden and output layers
+        self.who += self.lr * np.dot( (output_errors*final_outputs*(1.0-final_outputs)), np.transpose(hidden_outputs) )
+        #update the weights for the links between the input and hidden layers
+        self.wih += self.lr * np.dot( (hidden_errors*hidden_outputs*(1.0-hidden_outputs)), np.transpose(inputs) )
 
         pass
 
