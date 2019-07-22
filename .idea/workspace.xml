@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6b5fcdf2-4272-46a4-8925-5ed656a629e7" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/CodeDemo.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/CodeDemo.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PythonDemo/NeuralNetwork/neuralNetwork.py" beforeDir="false" afterPath="$PROJECT_DIR$/PythonDemo/NeuralNetwork/neuralNetwork.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PythonDemo/NeuralNetwork/neuralNetworkTest.py" beforeDir="false" afterPath="$PROJECT_DIR$/PythonDemo/NeuralNetwork/neuralNetworkTest.py" afterDir="false" />
-    </list>
+    <list default="true" id="6b5fcdf2-4272-46a4-8925-5ed656a629e7" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,64 +24,7 @@
     <fileColor scope="All" color="Violet" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/PythonDemo/NeuralNetwork/neuralNetwork.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="239">
-              <caret line="61" column="8" selection-start-line="61" selection-start-column="8" selection-end-line="61" selection-end-column="8" />
-              <folding>
-                <element signature="e#0#18#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/PythonDemo/NeuralNetwork/neuralNetworkTest.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="481">
-              <caret line="151" column="61" selection-start-line="151" selection-start-column="61" selection-end-line="151" selection-end-column="61" />
-              <folding>
-                <element signature="e#1#19#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/numpy/core/fromnumeric.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="235">
-              <caret line="1043" column="60" lean-forward="true" selection-start-line="1043" selection-start-column="60" selection-end-line="1043" selection-end-column="60" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/.PyCharm2018.3/system/python_stubs/2054450630/builtins.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="182">
-              <caret line="488" column="4" selection-start-line="488" selection-start-column="4" selection-end-line="488" selection-end-column="4" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/numpy/lib/type_check.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="278">
-              <caret line="116" selection-start-line="116" selection-end-line="116" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/PythonDemo/NeuralNetwork/mnist_train_100.csv">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -338,16 +275,15 @@
       <workItem from="1562222646503" duration="7966000" />
       <workItem from="1562230845825" duration="12086000" />
       <workItem from="1563499248033" duration="1753000" />
-      <workItem from="1563515304498" duration="15788000" />
+      <workItem from="1563515304498" duration="15933000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="37593000" />
+    <option name="totallyTimeSpent" value="37738000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.80701756" visible="true" weight="0.2260128" />
       <window_info id="Structure" order="1" sideWeight="0.50094515" side_tool="true" weight="0.2260128" />
@@ -727,16 +663,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/PythonDemo/NeuralNetwork/neuralNetwork.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="239">
-          <caret line="61" column="8" selection-start-line="61" selection-start-column="8" selection-end-line="61" selection-end-column="8" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/.PyCharm2018.3/system/python_stubs/2054450630/builtins.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="182">
@@ -757,6 +683,16 @@
           <caret line="151" column="61" selection-start-line="151" selection-start-column="61" selection-end-line="151" selection-end-column="61" />
           <folding>
             <element signature="e#1#19#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PythonDemo/NeuralNetwork/neuralNetwork.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="239">
+          <caret line="61" column="8" selection-start-line="61" selection-start-column="8" selection-end-line="61" selection-end-column="8" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
           </folding>
         </state>
       </provider>
