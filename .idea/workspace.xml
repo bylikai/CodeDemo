@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="6b5fcdf2-4272-46a4-8925-5ed656a629e7" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PythonDemo/NeuralNetwork/neuralNetwork.py" beforeDir="false" afterPath="$PROJECT_DIR$/PythonDemo/NeuralNetwork/neuralNetwork.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PythonDemo/NeuralNetwork/neuralNetworkTest.py" beforeDir="false" afterPath="$PROJECT_DIR$/PythonDemo/NeuralNetwork/neuralNetworkTest.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -17,7 +15,7 @@
     <SUITE FILE_PATH="coverage/CodeDemo$data_migration_MaterialsDB_remove.coverage" NAME="data_migration_MaterialsDB_remove Coverage Results" MODIFIED="1563516416527" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="F:/Demo/Python3Demo/MatCloudDemo/DataBase" />
     <SUITE FILE_PATH="coverage/CodeDemo$topDemo.coverage" NAME="topDemo Coverage Results" MODIFIED="1562568032099" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/PythonDemo/LibDemo/Process" />
     <SUITE FILE_PATH="coverage/CodeDemo$data_migration_TiO2Base.coverage" NAME="data_migration_TiO2Base Coverage Results" MODIFIED="1563526225928" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="F:/Demo/Python3Demo/MatCloudDemo/DataBase" />
-    <SUITE FILE_PATH="coverage/CodeDemo$neuralNetworkTest.coverage" NAME="neuralNetworkTest Coverage Results" MODIFIED="1564035172876" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/PythonDemo/NeuralNetwork" />
+    <SUITE FILE_PATH="coverage/CodeDemo$neuralNetworkTest.coverage" NAME="neuralNetworkTest Coverage Results" MODIFIED="1564035280807" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/PythonDemo/NeuralNetwork" />
     <SUITE FILE_PATH="coverage/CodeDemo$fluid.coverage" NAME="fluid Coverage Results" MODIFIED="1562225029345" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/PythonDemo/sklearnDemo" />
     <SUITE FILE_PATH="coverage/CodeDemo$svmMLiATest.coverage" NAME="svmMLiATest Coverage Results" MODIFIED="1562306250946" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/PythonDemo/MachineLearningInAction/chapter06" />
   </component>
@@ -32,8 +30,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/PythonDemo/NeuralNetwork/neuralNetworkTest.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="345">
-              <caret line="253" column="59" selection-start-line="253" selection-start-column="59" selection-end-line="253" selection-end-column="59" />
+            <state relative-caret-position="433">
+              <caret line="257" selection-start-line="257" selection-end-line="257" />
               <folding>
                 <element signature="e#1#19#0" expanded="true" />
               </folding>
@@ -361,16 +359,15 @@
       <workItem from="1562230845825" duration="12086000" />
       <workItem from="1563499248033" duration="1753000" />
       <workItem from="1563515304498" duration="15933000" />
-      <workItem from="1564021422128" duration="11698000" />
+      <workItem from="1564021422128" duration="12453000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="49436000" />
+    <option name="totallyTimeSpent" value="50191000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.80701756" visible="true" weight="0.22814499" />
       <window_info id="Structure" order="1" sideWeight="0.50094515" side_tool="true" weight="0.2260128" />
@@ -521,13 +518,8 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/PythonDemo/NeuralNetwork/neuralNetworkTest.py</url>
-          <line>257</line>
-          <option name="timeStamp" value="45" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/PythonDemo/NeuralNetwork/neuralNetworkTest.py</url>
-          <line>254</line>
-          <option name="timeStamp" value="47" />
+          <line>231</line>
+          <option name="timeStamp" value="50" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -829,8 +821,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/PythonDemo/NeuralNetwork/neuralNetworkTest.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="253" column="59" selection-start-line="253" selection-start-column="59" selection-end-line="253" selection-end-column="59" />
+        <state relative-caret-position="433">
+          <caret line="257" selection-start-line="257" selection-end-line="257" />
           <folding>
             <element signature="e#1#19#0" expanded="true" />
           </folding>

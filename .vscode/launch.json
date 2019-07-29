@@ -1,7 +1,6 @@
 {
     "version": "0.2.0",
     "configurations": [
-        
 
         {
             "name": "Python",
@@ -25,10 +24,27 @@
             "type": "python",
             "request": "launch",
             "stopOnEntry": true,
+            "pythonPath": "D:/Install/Python37/python",
+            "program": "${file}",
+            "cwd": "${workspaceRoot}",
+            "env": {"PYTHONPATH" : "${workspaceRoot}"},
+            "envFile": "${workspaceRoot}/.env",
+            "debugOptions": [
+                "WaitOnAbnormalExit",
+                "WaitOnNormalExit",
+                "RedirectOutput"
+            ]
+        },
+
+        {
+            "name": "Python",
+            "type": "python",
+            "request": "launch",
+            "stopOnEntry": true,
             "pythonPath": "D:/Install/Anaconda3/python",
             "program": "${file}",
             "cwd": "${workspaceRoot}",
-            "env": {},
+            "env": {"PYTHONPATH" : "${workspaceRoot}"},
             "envFile": "${workspaceRoot}/.env",
             "debugOptions": [
                 "WaitOnAbnormalExit",

@@ -102,3 +102,5 @@ ENV/
 
 # mysql configure
 */**/database_config.py
+
+.vscode
