@@ -36,10 +36,15 @@ def test_minkowski_recommand():
     print(distance)
     pass
 
+def test_filterdata_cosine():
+    c = fd.cosine( users['Hailey'], users['Veronica'] )
+    print(c)
+    pass
 
 if __name__ == "__main__":
     test_manhatten_recommand()
     test_euclidean_recommand()
     test_minkowski_recommand()
 
+    test_filterdata_cosine()
     print("@ok@")

@@ -7,10 +7,10 @@
             "type": "python",
             "request": "launch",
             "stopOnEntry": true,
-            "pythonPath": "/Library/Frameworks/Python.framework/Versions/3.7/bin/python3.7",
+            "pythonPath": "D:/Install/Python37/python",
             "program": "${file}",
             "cwd": "${workspaceRoot}",
-            "env": {},
+            "env": {"PYTHONPATH" : "${workspaceRoot}"},
             "envFile": "${workspaceRoot}/.env",
             "debugOptions": [
                 "WaitOnAbnormalExit",
@@ -24,10 +24,10 @@
             "type": "python",
             "request": "launch",
             "stopOnEntry": true,
-            "pythonPath": "D:/Install/Python37/python",
+            "pythonPath": "/Library/Frameworks/Python.framework/Versions/3.7/bin/python3.7",
             "program": "${file}",
             "cwd": "${workspaceRoot}",
-            "env": {"PYTHONPATH" : "${workspaceRoot}"},
+            "env": {},
             "envFile": "${workspaceRoot}/.env",
             "debugOptions": [
                 "WaitOnAbnormalExit",
@@ -35,6 +35,8 @@
                 "RedirectOutput"
             ]
         },
+
+       
 
         {
             "name": "Python",
