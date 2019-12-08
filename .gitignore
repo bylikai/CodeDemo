@@ -104,3 +104,4 @@ ENV/
 */**/database_config.py
 
 .vscode
+.npm/*
