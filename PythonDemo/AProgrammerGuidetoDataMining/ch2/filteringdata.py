@@ -1,5 +1,5 @@
 from math import sqrt
-
+import numpy as np
 
 
 
@@ -126,3 +126,62 @@ def recommand1( username, users ):
     print(recommandationList)
 
     return recommandationList
+
+
+def pearson(rating1, rating2):
+    """
+    calculate the pearson
+    """
+    sum_x = 0
+    sum_y = 0
+    sum_xy = 0
+    sum_xx = 0
+    sum_yy = 0
+    n = 0
+
+    for key in rating1:
+        if key in rating2:
+            n += 1
+            xi = rating1[key]
+            yi = rating2[key]
+            sum_x += xi
+            sum_y += yi
+            sum_xy+= xi*yi
+            sum_xx += xi*xi
+            sum_yy += yi*yi
+    
+    r = -1
+    if 0 != n:
+        r = (sum_xy - sum_x*sum_y/n)/(sqrt(sum_xx-(sum_x**2)/n)*sqrt(sum_yy-(sum_y**2)/n))
+
+    return r
+
+
+def cosine(rating1, rating2):
+    """
+    calculate the cosine similarity
+    cos(x,y) = dot(x,y)/(||x|| * ||y||)
+    """
+
+    sum_xy = 0
+    sum_xx = 0
+    sum_yy = 0
+    n = 0
+
+    for key in rating1:
+        if key in rating2:
+            n += 1
+            xi = rating1[key]
+            yi = rating2[key]
+
+            sum_xx += xi**2
+            sum_yy += yi**2
+
+            sum_xy += xi*yi
+    
+    c = -1
+    if n != 0:
+        c = sum_xy / (sqrt(sum_xx) * sqrt(sum_yy))
+
+    return c
+    
