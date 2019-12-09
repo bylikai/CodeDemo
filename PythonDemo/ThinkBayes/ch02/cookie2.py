@@ -1,4 +1,4 @@
-
+import __init__ 
 from thinkbayes import Pmf
 
 class Cookie(Pmf):

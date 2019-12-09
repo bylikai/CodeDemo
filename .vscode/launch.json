@@ -1,24 +1,13 @@
 {
     "version": "0.2.0",
     "configurations": [
-
         {
-            "name": "Python",
+            "name": "Python: 当前文件",
             "type": "python",
             "request": "launch",
-            "stopOnEntry": true,
-            "pythonPath": "D:/Install/Python37/python",
             "program": "${file}",
-            "cwd": "${workspaceRoot}",
-            "env": {"PYTHONPATH" : "${workspaceRoot}"},
-            "envFile": "${workspaceRoot}/.env",
-            "debugOptions": [
-                "WaitOnAbnormalExit",
-                "WaitOnNormalExit",
-                "RedirectOutput"
-            ]
+            "console": "integratedTerminal"
         },
-
         {
             "name": "Python",
             "type": "python",
@@ -35,9 +24,6 @@
                 "RedirectOutput"
             ]
         },
-
-       
-
         {
             "name": "Python",
             "type": "python",
@@ -46,7 +32,9 @@
             "pythonPath": "D:/Install/Anaconda3/python",
             "program": "${file}",
             "cwd": "${workspaceRoot}",
-            "env": {"PYTHONPATH" : "${workspaceRoot}"},
+            "env": {
+                "PYTHONPATH": "${workspaceRoot}"
+            },
             "envFile": "${workspaceRoot}/.env",
             "debugOptions": [
                 "WaitOnAbnormalExit",
@@ -54,7 +42,6 @@
                 "RedirectOutput"
             ]
         },
-        
         {
             "name": "Python",
             "type": "python",

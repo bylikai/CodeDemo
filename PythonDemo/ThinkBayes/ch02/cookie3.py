@@ -1,5 +1,5 @@
-
-from thinkbayes import Suite
+import __init__
+from  thinkbayes import Suite
 
 # vanilla 香草 🌿， chocolate 巧克力 🍫
 mixes = {
@@ -19,7 +19,7 @@ class Cookie(Suite):
         return like
 
 
-def main():
+def mainCookie3():
     hypos = ['Bowl 1', 'Bowl 2']
 
     pmf = Cookie(hypos)
@@ -31,4 +31,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    mainCookie3()
