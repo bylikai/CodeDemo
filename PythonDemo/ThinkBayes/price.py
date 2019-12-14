@@ -4,7 +4,6 @@ by Allen B. Downey, available from greenteapress.com
 Copyright 2013 Allen B. Downey
 License: GNU GPLv3 http://www.gnu.org/licenses/gpl.html
 """
-import __init__ 
 
 import csv
 import numpy
