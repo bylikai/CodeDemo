@@ -28,11 +28,17 @@ def main():
 
     thinkplot.PrePlot(1)
     thinkplot.Pmf(suite)
+    
+    '''
     thinkplot.Save(root='train1',
                    xlabel='Number of trains',
                    ylabel='Probability',
                    formats=['pdf', 'eps'])
+                   '''
 
+    thinkplot.Show(xlabel='Number of trains', ylabel='Probability')
+                   
+    
 
 if __name__ == '__main__':
     main()
