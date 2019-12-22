@@ -1,4 +1,4 @@
 {
-    "python.pythonPath": "/Users/wangyujie/install/anaconda/anaconda3/bin/python3.6",
+    "python.pythonPath": "/Library/Frameworks/Python.framework/Versions/3.7/bin/python3.7",
     "python.formatting.provider": "yapf"
 }

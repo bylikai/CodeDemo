@@ -55,8 +55,40 @@ def main():
     pmf.Update('vanilla')
 
     for hypo, prob in pmf.Items():
-        print hypo, prob
+        print( hypo, prob, sep=',')
+    
+    #Bowl 1,0.6000000000000001
+    #Bowl 2,0.4
 
+def main2():
+    hypos = ['Bowl 1', 'Bowl 2']
+
+    pmf = Cookie(hypos)
+
+    dataset = ['vanilla', 'chocolate', 'vanilla']
+    for data in dataset:
+        pmf.Update(data)
+
+    for hypo, prob in pmf.Items():
+        print( hypo, prob, sep=',')
+
+    #Bowl 1,0.5294117647058824
+    #Bowl 2,0.4705882352941176
+
+def main3():
+    hypos = ['Bowl 1', 'Bowl 2']
+
+    pmf = Cookie(hypos)
+
+    dataset = ['vanilla', 'chocolate', 'chocolate']
+    for data in dataset:
+        pmf.Update(data)
+
+    for hypo, prob in pmf.Items():
+        print( hypo, prob, sep=',')
+
+    #Bowl 1,0.27272727272727276
+    #Bowl 2,0.7272727272727272
 
 if __name__ == '__main__':
-    main()
+    main3()

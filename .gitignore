@@ -105,3 +105,8 @@ ENV/
 
 .vscode
 .npm/*
+.DS_Store
+.vscode/settings.json
+.DS_Store
+PythonDemo/.DS_Store
+*/**/.DS_Store
